@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, closeSync, openSync, writeFile } from 'fs'
-import { normalize } from 'path'
+const fs = require('fs')
+const path = require('path')
 
 const folders =[
     './src', './dist', './src/app', './src/app/components',
@@ -281,10 +281,10 @@ export default class About extends Component {
 ]
 
 folders.forEach( val => {
-    try {!existsSync(val) && mkdirSync(normalize(val))}
+    try {!fs.existsSync(val) && fs.mkdirSync(path.normalize(val))}
     catch (err) { console.error(err) }
 })
 files.forEach( val => {
-    closeSync(openSync(val.name, 'w'))
-    writeFile(val.name,val.content, err => { err && console.log(err); return })
+    fs.closeSync(fs.openSync(val.name, 'w'))
+    fs.writeFile(val.name,val.content, err => { err && console.log(err); return })
 })
